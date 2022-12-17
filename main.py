@@ -34,4 +34,33 @@ def Attack(attacker, defender):
         return True
 
 
+# Define the RunGame function
+def RunGame():
+    # Print the starting health of the hero and the enemy
+    print(f"{hero['name']} has {hero['health']} health.")
+    print(f"{enemy['name']} has {enemy['health']} health.")
+    print()
+    # Run the Attack function until one of the characters is defeated
+    while True:
+        # Print the attack menu for the hero
+        print("Select an attack:")
+        for i, attack in enumerate(hero["attack moves"]):
+            print(f"{i+1}: {attack}")
+        # Get the hero's attack choice from the user
+        choice = int(input())
+        # Subtract 1 from the choice to match the index of the attack in the hero_attacks list
+        chosen_attack = list(hero["attack moves"].keys())[choice - 1]
+        # Update the hero's attack value to match the chosen attack
+        hero["attack"] = hero["attack moves"][chosen_attack]
+        # Run the Attack function with the hero as the attacker
+        game_over = Attack(hero, enemy)
+        if not game_over:
+            break
+        # Run the Attack function with the enemy as the attacker
+        game_over = Attack(enemy, hero)
+        if not game_over:
+            break
 
+
+# Start the game
+RunGame()
